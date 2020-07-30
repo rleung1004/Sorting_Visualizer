@@ -3,7 +3,7 @@ import "./SortingVisualizer.css";
 import { getMergeSortAnimations } from "../SortingAlgorithms/mergeSort";
 
 // Change this value for the speed of animation
-const ANIMATION_SPEED_MS = 1;
+const ANIMATION_SPEED_MS = 2;
 
 // Change this value for the number of bars (values) in the array
 const NUMBER_OF_ARRAY_BARS = 310;
