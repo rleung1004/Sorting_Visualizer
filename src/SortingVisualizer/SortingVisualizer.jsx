@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./SortingVisualizer.css";
 import { getMergeSortAnimations } from "../SortingAlgorithms/mergeSort";
 import { getBubbleSortAnimations } from "../SortingAlgorithms/bubbleSort";
+import { getInsertionSortAnimations } from "../SortingAlgorithms/insertionSort";
 
 // Change this value for the speed of animation
 const ANIMATION_SPEED_MS = 5;
@@ -95,6 +96,14 @@ export default class SortingVisualizer extends Component {
     return;
   }
 
+  insertionSort() {
+    setTimeout(() => {
+      const animations = getInsertionSortAnimations(this.state.array);
+      this.animationsHelper(animations);
+    });
+    return;
+  }
+
   render() {
     const { array } = this.state;
 
@@ -116,6 +125,7 @@ export default class SortingVisualizer extends Component {
             <button onClick={() => this.quickSort()}>Quick Sort</button>
             <button onClick={() => this.heapSort()}>Heap Sort</button>
             <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+            <button onClick={() => this.insertionSort()}>Insertion Sort</button>
           </div>
         </div>
       </>
