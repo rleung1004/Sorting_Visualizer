@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./SortingVisualizer.css";
-import { getMergeSortAnimations } from "../SortingAlgorithms/mergeSort";
-import { getBubbleSortAnimations } from "../SortingAlgorithms/bubbleSort";
-import { getInsertionSortAnimations } from "../SortingAlgorithms/insertionSort";
+import { getMergeSortAnimations } from "../../SortingAlgorithms/mergeSort";
+import { getBubbleSortAnimations } from "../../SortingAlgorithms/bubbleSort";
+import { getInsertionSortAnimations } from "../../SortingAlgorithms/insertionSort";
 
 // Change this value for the speed of animation
 const ANIMATION_SPEED_MS = 5;
