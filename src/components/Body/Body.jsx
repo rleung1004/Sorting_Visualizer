@@ -1,11 +1,8 @@
 import React, { Component } from "react";
+import $ from "jquery";
 import "./Body.css";
 
 class Body extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       array,
@@ -38,6 +35,8 @@ class Body extends Component {
         ? 2.5
         : 2;
     const margin = `${numMargin}px`;
+
+    const color = numWidth > 20 ? "white" : "transparent";
 
     const numFont =
       numWidth > 70

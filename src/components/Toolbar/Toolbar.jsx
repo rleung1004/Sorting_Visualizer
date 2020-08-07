@@ -51,7 +51,7 @@ class Toolbar extends Component {
           Change Array Size & Sorting Speed
         </div>
         <input
-          id="changeSize"
+          id="change-size"
           type="range"
           min="0"
           max="100"
@@ -66,7 +66,7 @@ class Toolbar extends Component {
               ? "current-algorithm-button"
               : "algorithm-button"
           }
-          onclick={() => {
+          onClick={() => {
             this.handleClick("mergeSort");
           }}
         >
@@ -78,7 +78,7 @@ class Toolbar extends Component {
               ? "current-algorithm-button"
               : "algorithm-button"
           }
-          onclick={() => {
+          onClick={() => {
             this.handleClick("quickSort");
           }}
         >
@@ -90,7 +90,7 @@ class Toolbar extends Component {
               ? "current-algorithm-button"
               : "algorithm-button"
           }
-          onclick={() => {
+          onClick={() => {
             this.handleClick("heapSort");
           }}
         >
@@ -102,7 +102,7 @@ class Toolbar extends Component {
               ? "current-algorithm-button"
               : "algorithm-button"
           }
-          onclick={() => {
+          onClick={() => {
             this.handleClick("bubbleSort");
           }}
         >
