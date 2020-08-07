@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Body from "./Body";
+import Body from "./Body.jsx";
 
 const mapStateToProps = ({
   array,

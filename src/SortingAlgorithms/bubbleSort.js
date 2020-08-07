@@ -4,35 +4,34 @@ import { setCurrentSwappers } from "../reducers/swappers";
 import { setCurrentSorted } from "../reducers/sorted";
 import { setRunning } from "../reducers/running";
 
-export default function bubbleSort(stateArray, dispatch, speed) {
+function bubbleSort(stateArray, dispatch, speed) {
   let array = stateArray.slice(0);
-  let toDispatch = [];
+  let animations = [];
   let sorted = false;
   let i = 0;
-
   while (!sorted) {
     sorted = true;
-    for (let j = 0; j < array.length - 1 - i; i++) {
-      toDispatch.push([j, j + 1]);
+    for (let j = 0; j < array.length - 1 - i; j++) {
+      animations.push([j, j + 1]);
       if (array[j] > array[j + 1]) {
-        toDispatch.push(j, j + 1, true);
+        animations.push([j, j + 1, true]);
         let temp = array[j];
         array[j] = array[j + 1];
         array[j + 1] = temp;
         sorted = false;
-        toDispatch.push(array.slice(0));
-        toDispatch.push();
+        animations.push(array.slice(0));
+        animations.push([]);
       }
     }
-    toDispatch.push([true, dispatch, array, speed]);
+    animations.push([true, array.length - 1 - i]);
     i++;
   }
-  handleDispatch(toDispatch, dispatch, array, speed);
+  handleDispatch(animations, dispatch, array, speed);
   return array;
 }
 
-function handleDispatch(toDispatch, dispatch, array, speed) {
-  if (!toDispatch.length) {
+function handleDispatch(animations, dispatch, array, speed) {
+  if (!animations.length) {
     dispatch(setCurrentBubble(array.map((num, index) => index)));
     setTimeout(() => {
       dispatch(setCurrentBubble([]));
@@ -41,18 +40,18 @@ function handleDispatch(toDispatch, dispatch, array, speed) {
     }, 900);
     return;
   }
-  let dispatchCallBack =
-    toDispatch[0].length > 3
+  let dispatchFunction =
+    animations[0].length > 3
       ? setArray
-      : toDispatch[0].length === 3 || toDispatch[0].length === 0
+      : animations[0].length === 3 || animations[0].length === 0
       ? setCurrentSwappers
-      : toDispatch[0].length === 2 && typeof toDispatch[0][0] === "boolean"
+      : animations[0].length === 2 && typeof animations[0][0] === "boolean"
       ? setCurrentSorted
       : setCurrentBubble;
-
-  dispatch(dispatchCallBack(toDispatch.shift()));
-
+  dispatch(dispatchFunction(animations.shift()));
   setTimeout(() => {
-    handleDispatch(toDispatch, dispatch, array, speed);
+    handleDispatch(animations, dispatch, array, speed);
   }, speed);
 }
+
+export default bubbleSort;
