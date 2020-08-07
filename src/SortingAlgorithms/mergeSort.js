@@ -1,73 +1,86 @@
-export function getMergeSortAnimations(array) {
-  const animations = [];
-  if (array.length <= 1) return array;
-  const tempArray = array.slice();
+function mergeSort(stateArray, dispatch, speed) {
+  let array = stateArray.slice(0);
+  let animations = [];
 
-  mergeSort(array, 0, array.length - 1, tempArray, animations);
-  return animations;
+  let finalArray = mergeSortHelper(
+    array.map((num, idx) => [num, idx]),
+    animations,
+    0,
+    array.length - 1,
+    { array: array.slice(0) }
+  );
+
+  handleDispatch(animations, dispatch, finalArray, speed);
+  return finalArray;
 }
 
-function mergeSort(mainArray, startIdx, endIdx, tempArray, animations) {
-  if (startIdx === endIdx) return;
-  const middleIdx = Math.floor((startIdx + endIdx) / 2);
-  mergeSort(tempArray, startIdx, middleIdx, mainArray, animations);
-  mergeSort(tempArray, middleIdx + 1, endIdx, mainArray, animations);
-  mergeSortedArrays(
-    mainArray,
+function mergeSortHelper(array, animations, startIdx, endIdx, obj) {
+  if (array.length === 1) {
+    return array;
+  }
+  let half = Math.floor(array.length / 2);
+  let first = array.slice(0, half);
+  let second = array.slice(half);
+  let middleIdx = Math.floor((endIdx + 1 + startIdx) / 2);
+  let actualFirst = mergeSortHelper(first, animations, startIdx, middleIdx - 1);
+  let actualSecond = mergeSortHelper(second, animations, startIdx, endIdx, obj);
+  let isFinalMerge = false;
+
+  if (actualFirst.length + actualSecond.length === obj.array.length)
+    isFinalMerge = true;
+
+  return actualSort(
+    actualFirst,
+    actualSecond,
+    animations,
+    obj,
     startIdx,
-    middleIdx,
     endIdx,
-    tempArray,
-    animations
+    isFinalMerge
   );
 }
 
-function mergeSortedArrays(
-  mainArray,
+function actualSort(
+  first,
+  second,
+  animations,
+  obj,
   startIdx,
-  middleIdx,
   endIdx,
-  tempArray,
-  animations
+  isFinalMerge
 ) {
-  let k = startIdx;
-  let i = startIdx;
-  let j = middleIdx + 1;
+  let sortedArray = [];
+  let indexToPush = startIdx;
 
-  while (i <= middleIdx && j <= endIdx) {
-    // Comparing these values, change their colors
-    animations.push([i, j]);
-    // After comparing these values, revert their colors
-    animations.push([i, j]);
+  while (first.length && second.length) {
+    animations.push([first[0][1], second[0][1]]);
 
-    if (tempArray[i] <= tempArray[j]) {
-      // Overwrite the value at index k in the original array with the value at index i of the temporary array
-      animations.push([k, tempArray[i]]);
-      mainArray[k++] = tempArray[i++];
+    if (first[0][0] <= second[0][0]) {
+      indexToPush++;
+      sortedArray.push(first.shift());
     } else {
-      // Overwrite the value at index k in the original array with the value at index j of the temporary array
-      animations.push([k, tempArray[j]]);
-      mainArray[k++] = tempArray[j++];
+      animations.push([first[0][1], second[0][1], true]);
+      second[0][1] = indexToPush++;
+      sortedArray.push(second.shift());
+      first.forEach((subArr) => subArr[1]++);
+      if (start === 0) {
+        obj.array = sortedArray
+          .map((subArr) => subArr[0])
+          .concat(first.map((subArr) => subArr[0]))
+          .concat(second.map((subArr) => subArr[0]))
+          .concat(obj.array.slice(endIdx + 1));
+      } else {
+        obj.array = obj.array
+          .slice(0, startIdx)
+          .concat(sortedArray.map((subArr) => subArr[0]))
+          .concat(first.map((subArr) => subArr[0]))
+          .concat(second.map((subArr) => subArr[0]))
+          .concat(obj.array.slice(endIdx + 1));
+      }
+      animations.push(obj.array.concat([indexToPush - 1, indexToPush]));
+      animations.push([]);
     }
+    if (isFinalMerge) animations.push([true, indexToPush - 1]);
   }
-
-  while (i <= middleIdx) {
-    // Comparing these values, change their colors
-    animations.push([i, i]);
-    // After comparing these values, revert their colors
-    animations.push([i, i]);
-    // Overwrite the value at index k in the original array with the value at index i in temporary array
-    animations.push([k, tempArray[i]]);
-    mainArray[k++] = tempArray[i++];
-  }
-
-  while (j <= endIdx) {
-    // Comparing these values, change their colors
-    animations.push([j, j]);
-    // After comparing these values, revert their colors
-    animations.push([j, j]);
-    // Overwrite the value at index k in the original array with the balue at index j in temporary array
-    animations.push([k, tempArray[j]]);
-    mainArray[k++] = tempArray[j++];
-  }
+  return sortedArray.concat(first).concat(second);
 }
