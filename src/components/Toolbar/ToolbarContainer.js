@@ -5,6 +5,7 @@ import { setAlgorithm } from "../../reducers/algorithm";
 import { setCurrentSorted } from "../../reducers/sorted";
 import { setRunning } from "../../reducers/running";
 import bubbleSort from "../../SortingAlgorithms/bubbleSort";
+import mergeSort from "../../SortingAlgorithms/mergeSort";
 
 const mapStateToProps = ({ array, algorithm, isRunning }) => ({
   array,
@@ -27,7 +28,12 @@ const mapDispatchToProps = () => (dispatch) => ({
   },
 
   sort: (algorithm, array, speed) => {
-    let doSort = algorithm === "bubbleSort" ? bubbleSort : null;
+    let doSort =
+      algorithm === "bubbleSort"
+        ? bubbleSort
+        : algorithm === "mergeSort"
+        ? mergeSort
+        : null;
     dispatch(setCurrentSorted([]));
     dispatch(setRunning(true));
     doSort(array, dispatch, speed);

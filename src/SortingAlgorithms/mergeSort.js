@@ -1,3 +1,9 @@
+import { setArray } from "../reducers/array";
+import { setCurrentMerge } from "../reducers/mergeSort";
+import { setCurrentSwappers } from "../reducers/swappers";
+import { setCurrentSorted } from "../reducers/sorted";
+import { setRunning } from "../reducers/running";
+
 function mergeSort(stateArray, dispatch, speed) {
   let array = stateArray.slice(0);
   let animations = [];
@@ -22,8 +28,20 @@ function mergeSortHelper(array, animations, startIdx, endIdx, obj) {
   let first = array.slice(0, half);
   let second = array.slice(half);
   let middleIdx = Math.floor((endIdx + 1 + startIdx) / 2);
-  let actualFirst = mergeSortHelper(first, animations, startIdx, middleIdx - 1);
-  let actualSecond = mergeSortHelper(second, animations, startIdx, endIdx, obj);
+  let actualFirst = mergeSortHelper(
+    first,
+    animations,
+    startIdx,
+    middleIdx - 1,
+    obj
+  );
+  let actualSecond = mergeSortHelper(
+    second,
+    animations,
+    middleIdx,
+    endIdx,
+    obj
+  );
   let isFinalMerge = false;
 
   if (actualFirst.length + actualSecond.length === obj.array.length)
@@ -63,7 +81,7 @@ function actualSort(
       second[0][1] = indexToPush++;
       sortedArray.push(second.shift());
       first.forEach((subArr) => subArr[1]++);
-      if (start === 0) {
+      if (startIdx === 0) {
         obj.array = sortedArray
           .map((subArr) => subArr[0])
           .concat(first.map((subArr) => subArr[0]))
@@ -84,3 +102,54 @@ function actualSort(
   }
   return sortedArray.concat(first).concat(second);
 }
+
+function handleDispatch(animations, dispatch, array, speed) {
+  if (!animations.length) {
+    dispatch(setCurrentMerge(array.map((num, index) => index)));
+    setTimeout(() => {
+      dispatch(setCurrentMerge([]));
+      dispatch(setCurrentSorted(array.map((num, index) => index)));
+      dispatch(setRunning(false));
+    }, 900);
+    return;
+  }
+
+  let dispatchFunction =
+    animations[0].length > 3
+      ? setArray
+      : (animations[0].length === 3 && typeof animations[0][2] === "boolean") ||
+        animations[0].length === 0
+      ? setCurrentSwappers
+      : animations[0].length === 2 && typeof animations[0][0] === "boolean"
+      ? setCurrentSorted
+      : setCurrentMerge;
+
+  if (dispatchFunction === setArray) {
+    let currentAnimation = animations.shift();
+    dispatch(
+      dispatchFunction(currentAnimation.slice(0, currentAnimation.length - 2))
+    );
+    dispatch(setCurrentSwappers([]));
+    dispatch(setCurrentMerge([]));
+    dispatch(
+      setCurrentSwappers([
+        currentAnimation[currentAnimation.length - 2],
+        currentAnimation[currentAnimation.length - 1],
+      ])
+    );
+    dispatch(
+      setCurrentMerge([
+        currentAnimation[currentAnimation.length - 2],
+        currentAnimation[currentAnimation.length - 1],
+      ])
+    );
+  } else {
+    dispatch(dispatchFunction(animations.shift()));
+  }
+
+  setTimeout(() => {
+    handleDispatch(animations, dispatch, array, speed);
+  }, speed);
+}
+
+export default mergeSort;
