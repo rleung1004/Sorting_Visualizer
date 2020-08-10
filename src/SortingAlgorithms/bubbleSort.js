@@ -26,11 +26,11 @@ function bubbleSort(stateArray, dispatch, speed) {
     animations.push([true, array.length - 1 - i]);
     i++;
   }
-  handleDispatch(animations, dispatch, array, speed);
+  handleAnimations(animations, dispatch, array, speed);
   return array;
 }
 
-function handleDispatch(animations, dispatch, array, speed) {
+function handleAnimations(animations, dispatch, array, speed) {
   if (!animations.length) {
     dispatch(setCurrentBubble(array.map((num, index) => index)));
     setTimeout(() => {
@@ -50,7 +50,7 @@ function handleDispatch(animations, dispatch, array, speed) {
       : setCurrentBubble;
   dispatch(dispatchFunction(animations.shift()));
   setTimeout(() => {
-    handleDispatch(animations, dispatch, array, speed);
+    handleAnimations(animations, dispatch, array, speed);
   }, speed);
 }
 

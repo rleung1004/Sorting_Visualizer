@@ -16,7 +16,7 @@ function mergeSort(stateArray, dispatch, speed) {
     { array: array.slice(0) }
   );
 
-  handleDispatch(animations, dispatch, finalArray, speed);
+  handleAnimations(animations, dispatch, finalArray, speed);
   return finalArray;
 }
 
@@ -103,7 +103,7 @@ function actualSort(
   return sortedArray.concat(first).concat(second);
 }
 
-function handleDispatch(animations, dispatch, array, speed) {
+function handleAnimations(animations, dispatch, array, speed) {
   if (!animations.length) {
     dispatch(setCurrentMerge(array.map((num, index) => index)));
     setTimeout(() => {
@@ -148,7 +148,7 @@ function handleDispatch(animations, dispatch, array, speed) {
   }
 
   setTimeout(() => {
-    handleDispatch(animations, dispatch, array, speed);
+    handleAnimations(animations, dispatch, array, speed);
   }, speed);
 }
 
