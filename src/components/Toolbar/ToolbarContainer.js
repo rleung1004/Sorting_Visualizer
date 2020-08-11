@@ -6,7 +6,8 @@ import { setCurrentSorted } from "../../reducers/sorted";
 import { setRunning } from "../../reducers/running";
 import bubbleSort from "../../SortingAlgorithms/bubbleSort";
 import mergeSort from "../../SortingAlgorithms/mergeSort";
-import heapSort from "../../SortingAlgorithms/heapSort.js";
+import heapSort from "../../SortingAlgorithms/heapSort";
+import quickSort from "../../SortingAlgorithms/quickSort";
 
 const mapStateToProps = ({ array, algorithm, isRunning }) => ({
   array,
@@ -36,6 +37,8 @@ const mapDispatchToProps = () => (dispatch) => ({
         ? mergeSort
         : algorithm === "heapSort"
         ? heapSort
+        : algorithm === "quickSort"
+        ? quickSort
         : null;
     dispatch(setCurrentSorted([]));
     dispatch(setRunning(true));
