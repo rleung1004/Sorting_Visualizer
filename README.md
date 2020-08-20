@@ -5,6 +5,8 @@ This project was inspired by Clement Mihailescu.
 
 Link to the video here: https://www.youtube.com/watch?v=pFXYym4Wbkc
 
+The project is can be seen on: https://rleung1004.github.io/Sorting_Visualizer/.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
