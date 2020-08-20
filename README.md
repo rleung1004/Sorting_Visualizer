@@ -1,3 +1,10 @@
+# Sorting Visualizer
+This project features a sorting visualizer application using React.js and Redux.
+The goal of the project was to review my sorting algorithms, as well as implementing a visualization for them. 
+This project was inspired by Clement Mihailescu. 
+
+Link to the video here: https://www.youtube.com/watch?v=pFXYym4Wbkc
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
