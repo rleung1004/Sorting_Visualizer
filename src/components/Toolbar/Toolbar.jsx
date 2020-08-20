@@ -40,14 +40,14 @@ class Toolbar extends Component {
     return (
       <div id="toolbar">
         <div
-          id={!isRunning ? "generateArray" : "generateArrayX"}
+          id={!isRunning ? "generate-array" : "generate-arrayX"}
           style={{ color: color, cursor: cursor }}
           onClick={!isRunning ? () => generateArray(array.length) : null}
         >
           Generate New Array
         </div>
         <div className="separator"></div>
-        <div id="arraySize" style={{ color: color }}>
+        <div id="array-size" style={{ color: color }}>
           Change Array Size & Sorting Speed
         </div>
         <input

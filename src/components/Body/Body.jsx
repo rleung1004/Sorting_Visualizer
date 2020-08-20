@@ -66,10 +66,10 @@ class Body extends Component {
                   currentMerge.includes(index)
                 ? "rgba(78, 216, 96, 0.8)"
                 : pivot === index
-                ? "rgba(237, 234, 59, 0.8)"
+                ? "rgba(188, 19, 254, 0.8)"
                 : currentSorted.includes(index)
-                ? "rgba(169, 92, 232, 0.8)"
-                : "rgba(66, 134, 244, 0.8)";
+                ? "rgba(253, 253, 150, 0.8)"
+                : "rgba(174, 198, 255, 0.8)";
               return (
                 <div
                   className="arrayElement"

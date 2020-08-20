@@ -1,10 +1,10 @@
 #toolbar {
   width: 100%;
   height: 100px;
-  background-color: #34495e;
+  background-color: rgb(37, 37, 37);
 }
 
-#generateArray {
+#generate-array {
   font-size: 16px;
   font-family: monospace;
   display: inline-block;
@@ -12,11 +12,11 @@
   margin-right: 15px;
 }
 
-#generateArray:hover {
+#generate-array:hover {
   color: rgb(212, 212, 212) !important;
 }
 
-#generateArrayX {
+#generate-arrayX {
   font-size: 16px;
   font-family: monospace;
   display: inline-block;
@@ -24,7 +24,7 @@
   margin-right: 15px;
 }
 
-#arraySize {
+#array-size {
   font-size: 16px;
   font-family: monospace;
   display: inline-block;
@@ -32,7 +32,7 @@
   margin-right: 15px;
 }
 
-#changeSize {
+#change-size {
   outline: none;
   margin-right: 15px;
 }
@@ -61,7 +61,7 @@
 }
 
 .current-algorithm-button {
-  color: rgb(241, 94, 255);
+  color: #fcbf49;
   font-size: 16px;
   font-family: monospace;
   display: inline-block;
@@ -80,12 +80,27 @@
 #sort:hover {
   color: rgb(212, 212, 212);
 }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  border: 1px solid white;
+  width: 100px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100px;
+  height: 5px;
+  border: none;
+  border-radius: 3px;
+}
+
 input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
   border: none;
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background: rgb(241, 94, 255);
+  background: #fcbf49;
   margin-top: -4px;
 }
 
@@ -94,7 +109,22 @@ input[type="range"]:focus {
 }
 
 input[type="range"]:focus::-webkit-slider-runnable-track {
-  background: #cccccc;
+  background: #ccc;
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100px;
+  height: 5px;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #fcbf49;
 }
 
 input[type="range"]:-moz-focusring {
@@ -112,7 +142,7 @@ input[type="range"]::-ms-track {
 }
 
 input[type="range"]::-ms-fill-lower {
-  background: #777777;
+  background: #777;
   border-radius: 10px;
 }
 
@@ -125,13 +155,13 @@ input[type="range"]::-ms-thumb {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background: rgb(241, 94, 255);
+  background: #fcbf49;
 }
 
 input[type="range"]:focus::-ms-fill-lower {
-  background: #888888;
+  background: #888;
 }
 
 input[type="range"]:focus::-ms-fill-upper {
-  background: #cccccc;
+  background: #ccc;
 }
